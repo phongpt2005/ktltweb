@@ -1,5 +1,5 @@
 // Config - Tự động chọn URL backend phù hợp
-const API_URL = window.API_URL || "http://localhost:8081";
+const API_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? "http://localhost:8081" : "https://ktltweb.onrender.com");
 const token = localStorage.getItem("token") || ""; //jwt token
 
 const PAGES = {

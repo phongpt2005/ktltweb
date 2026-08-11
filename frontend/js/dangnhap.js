@@ -3,12 +3,16 @@ const khung = document.querySelector(".khung"),
   dangNhap = document.querySelector(".dangnhap-link");
 
 // js code xuất hiện đăng ký và đăng nhập
-dangKy.addEventListener("click", () => {
-  khung.classList.add("active");
-});
-dangNhap.addEventListener("click", () => {
-  khung.classList.remove("active");
-});
+if (dangKy && khung) {
+  dangKy.addEventListener("click", () => {
+    khung.classList.add("active");
+  });
+}
+if (dangNhap && khung) {
+  dangNhap.addEventListener("click", () => {
+    khung.classList.remove("active");
+  });
+}
 
 // kiểm tra định dạng email
 const kiemTraEmail = (email) => {
@@ -118,8 +122,7 @@ function xacnhandangky(event) {
     matkhaudangkynhaplai.style.border = "1px solid #7b5be4";
     loidangky("loi_mat_khaudangkynhaplai", "");
   }
-  console.log("btn dang ký")
-  
+
   if (
     giatriemaildangky == "" ||
     giatrimatkhaudangky == "" ||
@@ -129,19 +132,18 @@ function xacnhandangky(event) {
     giatrimatkhaudangkynhaplai == "" ||
     giatrimatkhaudangkynhaplai.length < 8
   ) {
-   
     return false;
   } else {
     dangky();
     return true;
   }
-
 }
 
 function loidangky(id, message) {
   document.getElementById(id).innerHTML = message;
 }
-const api = "http://localhost:8081";
+
+const API_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? "http://localhost:8081" : "https://ktltweb.onrender.com");
 
 async function dangnhap(event) {
   event.preventDefault();
@@ -160,7 +162,7 @@ async function dangnhap(event) {
   }
 
   try {
-    const res = await fetch(`http://localhost:8081/api/auth/login`, {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -186,7 +188,7 @@ async function dangnhap(event) {
 
 async function dangky() {
   try {
-    const res = await fetch(`http://localhost:8081/api/auth/register`, {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
