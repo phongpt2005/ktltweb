@@ -95,7 +95,7 @@ function mauSanPham(ten, anh, mota, gia, id) {
 
 async function loadProduct() {
   dsSanPham.innerHTML="";
-  const products = await fetch("http://localhost:8081/api/products", {
+  const products = await fetch(`${API_URL}/api/products`, {
       headers:{
           authorization: `Bearer ${localStorage.getItem("token")}`
       }
