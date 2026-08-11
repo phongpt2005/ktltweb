@@ -145,41 +145,67 @@ const api = "http://localhost:8081";
 
 async function dangnhap(event) {
   event.preventDefault();
-  fetch(`http://localhost:8081/api/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: document.getElementById("email").value,
-      password: document.getElementById("matkhau").value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((dt) => {
-      console.log(dt);
-      localStorage.setItem("token", dt.token);
-      // navigation home
-      window.location.href = "index.html";
+  const emailInput = document.getElementById("email").value.trim();
+  const matkhauInput = document.getElementById("matkhau").value.trim();
+  loi("loi_email", "");
+  loi("loi_mat_khau", "");
+
+  if (!emailInput) {
+    loi("loi_email", "Vui lòng nhập email hoặc tên đăng nhập");
+    return;
+  }
+  if (!matkhauInput) {
+    loi("loi_mat_khau", "Vui lòng nhập mật khẩu");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:8081/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: emailInput,
+        password: matkhauInput,
+      }),
     });
+
+    const dt = await res.json();
+    if (res.ok && dt && dt.token) {
+      localStorage.setItem("token", dt.token);
+      window.location.href = "index.html";
+    } else {
+      loi("loi_mat_khau", "Tên đăng nhập / email hoặc mật khẩu không đúng");
+    }
+  } catch (err) {
+    console.error(err);
+    loi("loi_mat_khau", "Lỗi kết nối máy chủ backend");
+  }
 }
+
 async function dangky() {
-  
-  const res = await fetch(`http://localhost:8081/api/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: document.getElementById("emaildangky").value,
-      password: document.getElementById("matkhaudangky").value,
-      username: document.getElementById("tendangky").value,
-    }),
-  })
-  // reload
-  window.location.href = "dangnhap.html";
-  
+  try {
+    const res = await fetch(`http://localhost:8081/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: document.getElementById("emaildangky").value,
+        password: document.getElementById("matkhaudangky").value,
+        username: document.getElementById("tendangky").value,
+      }),
+    });
 
-
-   
+    if (res.ok) {
+      alert("Đăng ký thành công! Vui lòng đăng nhập.");
+      window.location.href = "dangnhap.html";
+    } else {
+      alert("Đăng ký thất bại. Tên đăng nhập hoặc email có thể đã tồn tại.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Lỗi kết nối máy chủ.");
+  }
 }

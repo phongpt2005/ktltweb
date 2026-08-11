@@ -18,6 +18,9 @@ services:
     working_dir: /app
     depends_on:
       - db
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/apps?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: root
