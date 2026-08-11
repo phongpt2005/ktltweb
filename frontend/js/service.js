@@ -1,5 +1,5 @@
-// Config
-const API_URL = "http://localhost:8081";
+// Config - Tự động chọn URL backend phù hợp
+const API_URL = window.API_URL || "http://localhost:8081";
 const token = localStorage.getItem("token") || ""; //jwt token
 
 const PAGES = {
