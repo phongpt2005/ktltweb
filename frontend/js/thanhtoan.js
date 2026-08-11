@@ -33,7 +33,7 @@ loadCart();
 async function makeOrder(){
   const res = await createOrderService()
   console.log(res)
-  window.location.href = "/donhang.html?id=" + res.id;
+  window.location.href = "donhang.html?id=" + res.id;
 }
 
 async function loadUserInfo(){
