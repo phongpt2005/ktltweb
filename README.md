@@ -199,17 +199,6 @@ Fontend là web tĩnh nên có thể dùng các công cụ chạy file index.htm
 
 
 
-## Thành viên nhóm
-
-Phạm Văn Nguyên - B19DCCN479: Backend
-
-Trần Quang Minh - B19DCCN443: Backend
-
-Hoàng Thị Mỹ Linh - B19DCCN371: Frontend
-
-Nông Thị Thùy Dung - B19DCCN149: Frontend
-
-Nguyễn Thị Thêu - B18DCCN636: Frontend
 
 ## Triển khai sử dụng docker-compose
 
